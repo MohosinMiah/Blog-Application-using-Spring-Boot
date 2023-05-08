@@ -26,6 +26,8 @@ public class Post {
         strategy = GenerationType.AUTO
     )
     private Long Id;
+
+    
     @Column( name = "title", nullable = false)
     private String title;
 

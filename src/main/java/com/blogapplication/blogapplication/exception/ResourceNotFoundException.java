@@ -1,5 +1,10 @@
 package com.blogapplication.blogapplication.exception;
 
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.http.HttpStatus;
+
+
+@ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "Request resources not found ")
 public class ResourceNotFoundException extends RuntimeException{
 
     private String resourceName;
@@ -12,6 +17,18 @@ public class ResourceNotFoundException extends RuntimeException{
         this.resourceName = resourceName;
         this.fieldName = fieldName;
         this.fieldValue = fieldValue;
+    }
+
+    public String getResourceName() {
+        return resourceName;
+    }
+
+    public String getFieldName() {
+        return fieldName;
+    }
+
+    public String getFieldValue() {
+        return fieldValue;
     }
     
 }
