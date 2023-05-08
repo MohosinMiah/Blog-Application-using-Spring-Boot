@@ -1,8 +1,10 @@
 package com.blogapplication.blogapplication.service;
 
-import com.blogapplication.blogapplication.payload.PostDTO;
+import java.util.List;
+
+import com.blogapplication.blogapplication.entity.Post;
 
 public interface PostService {
-    PostDTO createPost(PostDTO postDTO);
-    PostDTO getAllPost();
+    Post createPost(Post post);
+    List<Post> getAllPost();
 }

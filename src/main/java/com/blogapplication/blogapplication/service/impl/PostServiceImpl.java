@@ -1,10 +1,11 @@
 package com.blogapplication.blogapplication.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.blogapplication.blogapplication.entity.Post;
-import com.blogapplication.blogapplication.payload.PostDTO;
 import com.blogapplication.blogapplication.repository.PostRepository;
 import com.blogapplication.blogapplication.service.PostService;
 
@@ -15,38 +16,19 @@ public class PostServiceImpl implements PostService{
     PostRepository postRepository;
 
     @Override
-    public PostDTO createPost(PostDTO postDTO) {
+    public Post createPost(Post post) {
         // Create a new post
-        Post post = new Post();
-        mapToPost(postDTO, post);
-
-        Post newPost = postRepository.save(post);
-
-        // New post return response in PostDTO formate
-        PostDTO postResponse = new PostDTO();
-        mapToPostDTO(newPost, postResponse);
-
-        return postResponse;
+        return postRepository.save(post);
     }
 
-    private void mapToPostDTO(Post newPost, PostDTO postResponse) {
-        postResponse.setTitle(newPost.getTitle());
-        postResponse.setContent(newPost.getContent());
-        postResponse.setDescription(newPost.getDescription());
-    }
-
-    private void mapToPost(PostDTO postDTO, Post post) {
-        post.setTitle(postDTO.getTitle());
-        post.setDescription(postDTO.getDescription());
-        post.setContent(postDTO.getContent());
-    }
+ 
 
 
 
     @Override
-    public PostDTO getAllPost() {
+    public List<Post> getAllPost() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAllPost'");
+        return postRepository.findAll();
     }
     
 }
