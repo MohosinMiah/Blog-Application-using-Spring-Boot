@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.blogapplication.blogapplication.entity.Post;
 import com.blogapplication.blogapplication.payload.PostDTO;
+import com.blogapplication.blogapplication.payload.PostResponse;
 import com.blogapplication.blogapplication.service.PostService;
+import com.blogapplication.blogapplication.utils.AppConstants;
 
 import jakarta.websocket.server.PathParam;
 
@@ -38,12 +40,14 @@ public class PostController {
 
 
     @GetMapping
-    public List<Post> getAllPost(
-        @RequestParam(value = "pageNo", defaultValue = "0" , required = false ) int pageNo,
-        @RequestParam(value = "pageSize", defaultValue = "2" , required = false ) int pageSize
+    public PostResponse getAllPost(
+        @RequestParam(value = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+        @RequestParam(value = "pageSize", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize,
+        @RequestParam(value = "sortBy", defaultValue = AppConstants.DEFAULT_SORT_BY, required = false) String sortBy,
+        @RequestParam(value = "sortDir", defaultValue = AppConstants.DEFAULT_SORT_DIRECTION, required = false) String sortDir
     )
     {
-        return postService.getAllPost(pageNo,pageSize);
+        return postService.getAllPost(pageNo, pageSize, sortBy, sortDir);
     }
 
     @GetMapping("/{id}")

@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import com.blogapplication.blogapplication.entity.Post;
 import com.blogapplication.blogapplication.exception.ResourceNotFoundException;
+import com.blogapplication.blogapplication.payload.PostResponse;
 import com.blogapplication.blogapplication.repository.PostRepository;
 import com.blogapplication.blogapplication.service.PostService;
 import org.springframework.data.domain.Page;
@@ -32,7 +33,7 @@ public class PostServiceImpl implements PostService{
 
 
     @Override
-    public List<Post> getAllPost(int pageNo, int pageSize) {
+    public PostResponse getAllPost(int pageNo, int pageSize, String sortBy, String sortDir) {
 
         // Add Pagination
         Pageable pageable = PageRequest.of(pageNo, pageSize);
@@ -41,7 +42,17 @@ public class PostServiceImpl implements PostService{
         
         List<Post> posts = paginatedPosts.getContent();
 
-        return posts;
+        PostResponse postResponse = new PostResponse();
+        System.out.println(posts);
+        postResponse.setContent(posts);
+        postResponse.setPageNo(paginatedPosts.getNumber());
+        postResponse.setPageSize(paginatedPosts.getSize());
+        postResponse.setTotalElements(paginatedPosts.getTotalElements());
+        postResponse.setTotalPages(paginatedPosts.getTotalPages());
+        postResponse.setLast(paginatedPosts.isLast());
+
+
+        return postResponse;
     }
 
 
