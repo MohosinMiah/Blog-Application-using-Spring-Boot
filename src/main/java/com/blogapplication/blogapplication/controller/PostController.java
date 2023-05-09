@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,9 +38,12 @@ public class PostController {
 
 
     @GetMapping
-    public List<Post> getAllPost()
+    public List<Post> getAllPost(
+        @RequestParam(value = "pageNo", defaultValue = "0" , required = false ) int pageNo,
+        @RequestParam(value = "pageSize", defaultValue = "2" , required = false ) int pageSize
+    )
     {
-        return postService.getAllPost();
+        return postService.getAllPost(pageNo,pageSize);
     }
 
     @GetMapping("/{id}")

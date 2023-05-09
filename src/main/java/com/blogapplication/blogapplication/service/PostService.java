@@ -7,7 +7,7 @@ import com.blogapplication.blogapplication.entity.Post;
 
 public interface PostService {
     Post createPost(Post post);
-    List<Post> getAllPost();
+    List<Post> getAllPost(int pageNo, int pageSize);
     Post getPostById(Long postId);
     Post updatePost(Long blogId, Post post);
     String deletePost(Long postId);

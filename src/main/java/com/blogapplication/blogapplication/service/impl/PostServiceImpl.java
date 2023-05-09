@@ -2,15 +2,20 @@ package com.blogapplication.blogapplication.service.impl;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
 import com.blogapplication.blogapplication.entity.Post;
 import com.blogapplication.blogapplication.exception.ResourceNotFoundException;
 import com.blogapplication.blogapplication.repository.PostRepository;
 import com.blogapplication.blogapplication.service.PostService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+
+
 
 @Service
 public class PostServiceImpl implements PostService{
@@ -27,9 +32,16 @@ public class PostServiceImpl implements PostService{
 
 
     @Override
-    public List<Post> getAllPost() {
-        // TODO Auto-generated method stub
-        return postRepository.findAll();
+    public List<Post> getAllPost(int pageNo, int pageSize) {
+
+        // Add Pagination
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+
+        Page<Post> paginatedPosts = postRepository.findAll(pageable);
+        
+        List<Post> posts = paginatedPosts.getContent();
+
+        return posts;
     }
 
 
