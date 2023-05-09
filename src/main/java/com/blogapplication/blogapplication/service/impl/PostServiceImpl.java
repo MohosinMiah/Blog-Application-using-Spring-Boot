@@ -42,8 +42,8 @@ public class PostServiceImpl implements PostService{
         
         List<Post> posts = paginatedPosts.getContent();
 
+        // Response in a proper pagination formate
         PostResponse postResponse = new PostResponse();
-        System.out.println(posts);
         postResponse.setContent(posts);
         postResponse.setPageNo(paginatedPosts.getNumber());
         postResponse.setPageSize(paginatedPosts.getSize());
