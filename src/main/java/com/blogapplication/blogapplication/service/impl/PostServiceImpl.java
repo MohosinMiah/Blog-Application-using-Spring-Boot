@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.blogapplication.blogapplication.entity.Post;
+import com.blogapplication.blogapplication.exception.ResourceNotFoundException;
 import com.blogapplication.blogapplication.repository.PostRepository;
 import com.blogapplication.blogapplication.service.PostService;
 
@@ -34,9 +35,9 @@ public class PostServiceImpl implements PostService{
 
 
     @Override
-    public Optional<Post> getPostById(Long postId) {
+    public Post getPostById(Long postId) {
         // TODO Auto-generated method stub
-        return postRepository.findById(postId);
+        return postRepository.findById(postId).orElseThrow(()-> new ResourceNotFoundException("Post", "id", postId));
     }
 
 
