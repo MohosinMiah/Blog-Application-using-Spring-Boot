@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,5 +52,11 @@ public class PostController {
     public Post updatePostById(@PathVariable("id") Long postId, @RequestBody Post post )
     {
         return postService.updatePost(postId, post);
+    }
+
+    @DeleteMapping("{id}")
+    public String deletePost(@PathVariable("id") Long postId )
+    {
+        return postService.deletePost(postId);
     }
 }

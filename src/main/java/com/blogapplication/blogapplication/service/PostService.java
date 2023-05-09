@@ -10,4 +10,5 @@ public interface PostService {
     List<Post> getAllPost();
     Post getPostById(Long postId);
     Post updatePost(Long blogId, Post post);
+    String deletePost(Long postId);
 }

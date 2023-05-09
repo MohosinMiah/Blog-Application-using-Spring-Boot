@@ -63,5 +63,14 @@ public class PostServiceImpl implements PostService{
         } 
         return postRepository.save(postGet);
     }
+
+
+
+    @Override
+    public String deletePost(Long postId) {
+        // TODO Auto-generated method stub
+        postRepository.deleteById(postId);
+        return "Post Deleted Successfully";
+    }
     
 }
