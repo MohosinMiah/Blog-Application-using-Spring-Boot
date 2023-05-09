@@ -1,6 +1,7 @@
 package com.blogapplication.blogapplication.service.impl;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,23 @@ public class PostServiceImpl implements PostService{
     @Override
     public Post updatePost(Long blogId, Post post) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updatePost'");
+        Post postGet = postRepository.findById(blogId).get();
+
+        if( Objects.nonNull( post.getTitle() ) && !"".equalsIgnoreCase( postGet.getTitle() ))
+        {
+            postGet.setTitle(post.getTitle());
+        }
+
+        if( Objects.nonNull( post.getDescription() ) && !"".equalsIgnoreCase(postGet.getDescription()))
+        {
+            postGet.setDescription(post.getDescription());
+        } 
+
+        if( Objects.nonNull( post.getDescription() ) && !"".equalsIgnoreCase(postGet.getContent()))
+        {
+            postGet.setDescription(post.getDescription());
+        } 
+        return postRepository.save(postGet);
     }
     
 }
