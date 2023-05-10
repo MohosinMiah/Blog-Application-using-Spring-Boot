@@ -1,5 +1,8 @@
 package com.blogapplication.blogapplication.service.impl;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +12,10 @@ import com.blogapplication.blogapplication.exception.ResourceNotFoundException;
 import com.blogapplication.blogapplication.repository.CommentRepository;
 import com.blogapplication.blogapplication.repository.PostRepository;
 import com.blogapplication.blogapplication.service.CommentService;
+
+
+
+
 
 @Service
 public class CommentServiceImpl implements CommentService{
@@ -27,6 +34,11 @@ public class CommentServiceImpl implements CommentService{
         comment.setPost(post);
         commentRepository.save(comment);
         return comment;
+    }
+
+    @Override
+    public List<Comment> getAllCommentsByPost(Long postId) {
+        return commentRepository.findByPostId(postId);
     }
 
  
