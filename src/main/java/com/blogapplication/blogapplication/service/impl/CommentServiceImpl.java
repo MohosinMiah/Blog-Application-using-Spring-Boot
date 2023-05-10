@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.blogapplication.blogapplication.entity.Comment;
 import com.blogapplication.blogapplication.entity.Post;
+import com.blogapplication.blogapplication.exception.BlogAPIException;
 import com.blogapplication.blogapplication.exception.ResourceNotFoundException;
 import com.blogapplication.blogapplication.repository.CommentRepository;
 import com.blogapplication.blogapplication.repository.PostRepository;
@@ -39,6 +41,21 @@ public class CommentServiceImpl implements CommentService{
     @Override
     public List<Comment> getAllCommentsByPost(Long postId) {
         return commentRepository.findAll();
+    }
+
+    @Override
+    public Comment getCommentById(Long postId, Long commentId) {
+        // TODO Auto-generated method stub
+        Post post = postRepository.findById(postId).orElseThrow(()-> new ResourceNotFoundException("Post", "id", postId));;
+
+
+        Comment comment =  commentRepository.findById(commentId).orElseThrow(()-> new ResourceNotFoundException("Comment", "id", commentId));
+
+        if( !comment.getPost().getId().equals( post.getId() ) )
+        {
+            throw new BlogAPIException(HttpStatus.BAD_REQUEST, "Comment Does not belong to the post");
+        }
+        return comment;
     }
 
  
