@@ -25,7 +25,7 @@ public class CommentServiceImpl implements CommentService{
         Post post = postRepository.findById(postId).orElseThrow( ()-> new ResourceNotFoundException("Post","Id",postId));
         
         comment.setPost(post);
-
+        commentRepository.save(comment);
         return comment;
     }
 
