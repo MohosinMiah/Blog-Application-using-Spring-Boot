@@ -92,6 +92,25 @@ public class CommentServiceImpl implements CommentService{
         return updatedComment;
     }
 
+    @Override
+    public Comment deleteCommentById(Long postId, Long commentId) {
+        Post post = postRepository.findById(postId).orElseThrow(()-> new ResourceNotFoundException("Post", "id", postId));;
+
+
+        Comment getComment =  commentRepository.findById(commentId).orElseThrow(()-> new ResourceNotFoundException("Comment", "id", commentId));
+
+        if( !getComment.getPost().getId().equals( post.getId() ) )
+        {
+            throw new BlogAPIException(HttpStatus.BAD_REQUEST, "Comment Does not belong to the post");
+        }
+
+        commentRepository.deleteById(commentId);
+        return getComment;
+    }
+
+
+    
+
    
  
     
