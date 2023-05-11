@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,4 +46,15 @@ public class CommentController {
     {
         return commentService.getCommentById(postId, commentId);
     }
+
+    @PutMapping("posts/{postId}/comments/{commentId}")
+    public Comment updateCommentById(
+        @PathVariable("postId") Long postId,
+        @PathVariable("commentId") Long commentId,
+        @RequestBody Comment comment
+    )
+    {
+        return commentService.updateCommentById(postId, commentId, comment);
+    }
+
 }

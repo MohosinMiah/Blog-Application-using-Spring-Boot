@@ -1,6 +1,7 @@
 package com.blogapplication.blogapplication.service.impl;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +59,40 @@ public class CommentServiceImpl implements CommentService{
         return comment;
     }
 
+    @Override
+    public Comment updateCommentById(Long postId, Long commentId, Comment comment) {
+        // TODO Auto-generated method stub
+        Post post = postRepository.findById(postId).orElseThrow(()-> new ResourceNotFoundException("Post", "id", postId));;
+
+
+        Comment getComment =  commentRepository.findById(commentId).orElseThrow(()-> new ResourceNotFoundException("Comment", "id", commentId));
+
+        if( !getComment.getPost().getId().equals( post.getId() ) )
+        {
+            throw new BlogAPIException(HttpStatus.BAD_REQUEST, "Comment Does not belong to the post");
+        }
+
+        
+        if( Objects.nonNull( getComment.getName() ) && !"".equalsIgnoreCase( comment.getName() ))
+        {
+            getComment.setName(comment.getName());
+        }
+
+        if( Objects.nonNull( getComment.getEmail() ) && !"".equalsIgnoreCase(comment.getEmail()))
+        {
+            getComment.setEmail(comment.getEmail());
+        } 
+
+        if( Objects.nonNull( getComment.getBody() ) && !"".equalsIgnoreCase(comment.getBody()))
+        {
+            getComment.setBody(comment.getBody());
+        } 
+        
+        Comment updatedComment = commentRepository.save(getComment);
+        return updatedComment;
+    }
+
+   
  
     
 }
