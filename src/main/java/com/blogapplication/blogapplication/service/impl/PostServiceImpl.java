@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import com.blogapplication.blogapplication.entity.Post;
+import com.blogapplication.blogapplication.exception.BlogAPIException;
 import com.blogapplication.blogapplication.exception.ResourceNotFoundException;
 import com.blogapplication.blogapplication.payload.PostResponse;
 import com.blogapplication.blogapplication.repository.PostRepository;
@@ -15,6 +16,7 @@ import com.blogapplication.blogapplication.service.PostService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 
 
 
@@ -60,7 +62,7 @@ public class PostServiceImpl implements PostService{
     @Override
     public Post getPostById(Long postId) {
         // TODO Auto-generated method stub
-        return postRepository.findById(postId).orElseThrow(()-> new ResourceNotFoundException("Post", "id", postId));
+        return postRepository.findById(postId).orElseThrow(()-> new BlogAPIException(HttpStatus.BAD_REQUEST, "Blog is not available"));
     }
 
 
