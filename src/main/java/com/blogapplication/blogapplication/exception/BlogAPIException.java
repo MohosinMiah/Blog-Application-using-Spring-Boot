@@ -3,6 +3,7 @@ package com.blogapplication.blogapplication.exception;
 import org.springframework.http.HttpStatus;
 
 public class BlogAPIException extends RuntimeException{
+    
     private HttpStatus status;
     private String message;
 

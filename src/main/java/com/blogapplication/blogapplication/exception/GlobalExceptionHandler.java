@@ -29,7 +29,14 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
 
-    // Blog Exception
+    // Global Exception
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorDetails> globalException(Exception exception, WebRequest webRequest)
+    {
+        ErrorDetails errorDetails = new ErrorDetails( new Date(), exception.getMessage(), webRequest.getDescription(false) );
+        return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 
 
 
