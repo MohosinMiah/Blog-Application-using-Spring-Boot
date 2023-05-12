@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ import com.blogapplication.blogapplication.payload.PostResponse;
 import com.blogapplication.blogapplication.service.PostService;
 import com.blogapplication.blogapplication.utils.AppConstants;
 
+import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 
 @RestController
@@ -33,7 +35,7 @@ public class PostController {
     private PostService postService;
 
     @PostMapping
-    public Post createPost( @RequestBody Post post)
+    public Post createPost( @Validated @RequestBody Post post)
     {
         return postService.createPost(post);
     }
@@ -41,6 +43,7 @@ public class PostController {
 
     @GetMapping
     public PostResponse getAllPost(
+
         @RequestParam(value = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
         @RequestParam(value = "pageSize", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize,
         @RequestParam(value = "sortBy", defaultValue = AppConstants.DEFAULT_SORT_BY, required = false) String sortBy,
