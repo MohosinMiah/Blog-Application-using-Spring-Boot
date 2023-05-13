@@ -43,17 +43,27 @@ public class SecurityConfig {
     }
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception
+    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception
     {
 
-        httpSecurity.csrf().disable()
-            .authorizeHttpRequests( (authorize) -> 
-                // authorize.anyRequest().authenticated()
-                authorize.requestMatchers(HttpMethod.GET, "/api/**").permitAll().anyRequest().permitAll()
-            ).httpBasic(Customizer.withDefaults());
+        // httpSecurity.csrf().disable()
+        //     .authorizeHttpRequests( (authorize) -> 
+        //         authorize.requestMatchers(HttpMethod.GET, "/api/**").permitAll()
+        //         .requestMatchers("/api/auth/**").permitAll()
+        //         .anyRequest().authenticated()
+        //     );
 
-        return httpSecurity.build();
+        http.csrf().disable()
+        .authorizeHttpRequests( requests -> requests
+            .requestMatchers(HttpMethod.GET,  "/api/**").authenticated()
+            .requestMatchers("/api/auth/**").permitAll()
+            .anyRequest().authenticated()
+        )
+        .httpBasic();
+        return http.build();
     }
+
+   
 
 
     // This function is not required for Database Authentication this is just required for create Inmemoery Users
