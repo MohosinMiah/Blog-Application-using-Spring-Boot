@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blogapplication.blogapplication.payload.LoginDTO;
+import com.blogapplication.blogapplication.payload.RegisterDTO;
 import com.blogapplication.blogapplication.service.AuthService;
 
 @RestController
@@ -26,5 +27,14 @@ public class AuthController {
 
         return ResponseEntity.ok(response);
     }
+
+        // Build Register  Rest API
+        @PostMapping(value = {"/register", "/signup"})
+        public ResponseEntity<String> register( @RequestBody RegisterDTO registerDTO){
+    
+            String response = authService.register(registerDTO);
+    
+            return ResponseEntity.ok(response);
+        }
 
 }
