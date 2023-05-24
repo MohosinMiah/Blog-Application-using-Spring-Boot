@@ -2,6 +2,8 @@ package com.blogapplication.blogapplication.entity;
 
 import java.util.List;
 
+import com.blogapplication.blogapplication.exception.ResourceNotFoundException;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,5 +34,9 @@ public class Category {
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true )
     private List<Post> posts;
+
+    public Category orElseThrow(ResourceNotFoundException resourceNotFoundException) {
+        return null;
+    }
 
 }
