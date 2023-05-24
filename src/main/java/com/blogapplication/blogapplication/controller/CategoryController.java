@@ -51,6 +51,7 @@ public class CategoryController {
 
 
     @DeleteMapping("/{categoryId}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public CategoryDto deleteCategoryById( @PathVariable("categoryId") Long categoryId , @RequestBody CategoryDto categoryDto )
     {
         return categoryService.deleteCategoryById(categoryId);
