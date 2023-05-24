@@ -32,5 +32,12 @@ public class CategoryServiceImpl implements CategoryService {
 
         return modelMapper.map(saveCategory, CategoryDto.class);
     }
+
+    @Override
+    public CategoryDto getCategoryById(Long categoryId) {
+        // Get Category By ID
+        Category category = categoryRepository.findById(categoryId).get();
+        return modelMapper.map(category,CategoryDto.class);
+    }
     
 }

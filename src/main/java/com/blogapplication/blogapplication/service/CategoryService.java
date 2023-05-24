@@ -5,5 +5,7 @@ import com.blogapplication.blogapplication.payload.CategoryDto;
 public interface CategoryService {
 
     public CategoryDto addCategory(CategoryDto categoryDto);
+
+    public CategoryDto getCategoryById(Long categoryId);
     
 }
