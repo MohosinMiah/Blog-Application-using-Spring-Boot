@@ -11,5 +11,7 @@ public interface CategoryService {
     public CategoryDto getCategoryById(Long categoryId);
 
     public List<CategoryDto> getCategoryList();
+
+    public CategoryDto updateCategoryById(Long categoryId, CategoryDto categoryDto);
     
 }

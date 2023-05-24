@@ -43,6 +43,10 @@ public class CategoryServiceImpl implements CategoryService {
         return modelMapper.map(category,CategoryDto.class);
     }
 
+
+
+
+
     @Override
     public List<CategoryDto> getCategoryList() {
         // Get Category List
@@ -53,9 +57,28 @@ public class CategoryServiceImpl implements CategoryService {
         .stream()
         .map(user -> modelMapper.map(user, CategoryDto.class))
         .collect(Collectors.toList());
-
         
         return categoriesDtos;
+    }
+
+    @Override
+    public CategoryDto updateCategoryById(Long categoryId, CategoryDto categoryDto) {
+        // Update by ID
+        // Get Category By ID
+        Category category = categoryRepository.findById(categoryId).get();
+        category.setName(categoryDto.getName());
+        category.setDescription(categoryDto.getDescription());
+        categoryRepository.save(category);
+
+        Category updatedCategory = categoryRepository.findById(categoryId).get();
+
+        // Convert category entity to map category
+
+        CategoryDto responseCategory = modelMapper.map(updatedCategory, CategoryDto.class);
+
+
+        return responseCategory;
+
     }
     
 }
