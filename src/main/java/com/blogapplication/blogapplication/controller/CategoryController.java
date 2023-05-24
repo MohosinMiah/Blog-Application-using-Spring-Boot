@@ -1,5 +1,7 @@
 package com.blogapplication.blogapplication.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,9 +27,18 @@ public class CategoryController {
         return categoryService.addCategory(categoryDto);
     }
 
+
+    @GetMapping
+    public List<CategoryDto> getCategoryList()
+    {
+        return categoryService.getCategoryList();
+    }
+
     @GetMapping("/{categoryId}")
     public CategoryDto getCategoryById( @PathVariable("categoryId") Long categoryId )
     {
         return categoryService.getCategoryById(categoryId);
     }
+
+
 }

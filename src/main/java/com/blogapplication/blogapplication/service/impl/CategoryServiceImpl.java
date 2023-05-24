@@ -1,5 +1,8 @@
 package com.blogapplication.blogapplication.service.impl;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,6 +41,21 @@ public class CategoryServiceImpl implements CategoryService {
         // Get Category By ID
         Category category = categoryRepository.findById(categoryId).get();
         return modelMapper.map(category,CategoryDto.class);
+    }
+
+    @Override
+    public List<CategoryDto> getCategoryList() {
+        // Get Category List
+        List<Category> categories =  categoryRepository.findAll();
+
+        // Convert Category Entity list to CategoryDto List
+        List<CategoryDto> categoriesDtos = categories
+        .stream()
+        .map(user -> modelMapper.map(user, CategoryDto.class))
+        .collect(Collectors.toList());
+
+        
+        return categoriesDtos;
     }
     
 }
