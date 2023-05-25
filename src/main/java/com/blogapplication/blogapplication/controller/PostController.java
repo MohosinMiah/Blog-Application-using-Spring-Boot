@@ -64,9 +64,9 @@ public class PostController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/{id}")
-    public Post updatePostById(@PathVariable("id") Long postId, @RequestBody Post post )
+    public PostDTO updatePostById(@PathVariable("id") Long postId, @RequestBody PostDTO postDTO )
     {
-        return postService.updatePost(postId, post);
+        return postService.updatePost(postId, postDTO);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")

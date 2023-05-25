@@ -88,14 +88,7 @@ public class CategoryServiceImpl implements CategoryService {
          // Get Category By ID
          Category category = categoryRepository.findById(categoryId).orElseThrow( () -> new ResourceNotFoundException("Category Resource", "Categeopry ID", categoryId));
 
-         System.out.println(category);
-
-         System.out.println("With Category Get");
-
-         System.out.println(categoryRepository.findById(categoryId).get());
-
-
-         if(category.getId() == categoryId)
+         if( category.getId() == categoryId)
          {
             categoryRepository.deleteById(category.getId());
          }

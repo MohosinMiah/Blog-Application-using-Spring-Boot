@@ -64,6 +64,7 @@ public class PostServiceImpl implements PostService{
         
         List<Post> posts = paginatedPosts.getContent();
 
+        
         // Response in a proper pagination formate
         PostResponse postResponse = new PostResponse();
         postResponse.setContent(posts);
@@ -88,25 +89,40 @@ public class PostServiceImpl implements PostService{
 
 
     @Override
-    public Post updatePost(Long blogId, Post post) {
-        // TODO Auto-generated method stub
+    public PostDTO updatePost(Long blogId, PostDTO postDto) {
+        // Update Post based on ID
         Post postGet = postRepository.findById(blogId).get();
 
-        if( Objects.nonNull( post.getTitle() ) && !"".equalsIgnoreCase( postGet.getTitle() ))
+        if( Objects.nonNull( postDto.getTitle() ) && !"".equalsIgnoreCase( postGet.getTitle() ))
         {
-            postGet.setTitle(post.getTitle());
+            postGet.setTitle(postDto.getTitle());
         }
 
-        if( Objects.nonNull( post.getDescription() ) && !"".equalsIgnoreCase(postGet.getDescription()))
+        if( Objects.nonNull( postDto.getDescription() ) && !"".equalsIgnoreCase(postGet.getDescription()))
         {
-            postGet.setDescription(post.getDescription());
+            postGet.setDescription(postDto.getDescription());
         } 
 
-        if( Objects.nonNull( post.getDescription() ) && !"".equalsIgnoreCase(postGet.getContent()))
+        if( Objects.nonNull( postDto.getDescription() ) && !"".equalsIgnoreCase(postGet.getContent()))
         {
-            postGet.setDescription(post.getDescription());
-        } 
-        return postRepository.save(postGet);
+            postGet.setDescription(postDto.getDescription());
+        }
+
+        if( Objects.nonNull( postDto.getCategoryId() ) && !postGet.getContent().isEmpty() )
+        {
+             // Get category object
+            Category category = categoryRepository.findById(postDto.getCategoryId()).orElseThrow( () -> new ResourceNotFoundException("Post Resource", "Post ID", postDto.getCategoryId()));
+
+            postGet.setCategory(category);
+        }
+
+        postRepository.save(postGet);
+
+        // Convert entity to dto
+        PostDTO responsePostDto = modelMapper.map(postGet, PostDTO.class);
+        
+        return responsePostDto;
+
     }
 
 
