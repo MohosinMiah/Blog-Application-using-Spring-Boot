@@ -8,10 +8,11 @@ import org.springframework.stereotype.Repository;
 
 import com.blogapplication.blogapplication.entity.Comment;
 import com.blogapplication.blogapplication.entity.Post;
+import com.blogapplication.blogapplication.payload.PostDTO;
 
 
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-    
+    List<Post> findByCategoryId(Long categoryId);
 }

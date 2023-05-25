@@ -75,4 +75,10 @@ public class PostController {
     {
         return postService.deletePost(postId);
     }
+
+    @GetMapping("/category/{categoryId}")
+    public List<PostDTO> findByCategoryId(@PathVariable("categoryId") Long categoryId )
+    {
+        return postService.findByCategoryId(categoryId);
+    }
 }

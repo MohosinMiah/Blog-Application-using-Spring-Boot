@@ -2,6 +2,7 @@ package com.blogapplication.blogapplication.service.impl;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -132,6 +133,17 @@ public class PostServiceImpl implements PostService{
         // TODO Auto-generated method stub
         postRepository.deleteById(postId);
         return "Post Deleted Successfully";
+    }
+
+
+
+    @Override
+    public List<PostDTO> findByCategoryId(Long categoryId) {
+        // Post List By Category ID
+        List<Post> posts               = postRepository.findByCategoryId(categoryId);
+        List<PostDTO> responsePostDtos = posts.stream().map(post -> modelMapper.map(post,PostDTO.class)).collect(Collectors.toList());
+
+        return responsePostDtos;
     }
     
 }

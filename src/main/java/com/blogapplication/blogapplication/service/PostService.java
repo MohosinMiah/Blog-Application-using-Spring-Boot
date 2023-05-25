@@ -13,4 +13,5 @@ public interface PostService {
     Post getPostById(Long postId);
     PostDTO updatePost(Long blogId, PostDTO postDto);
     String deletePost(Long postId);
+    List<PostDTO> findByCategoryId(Long categoryId);
 }
