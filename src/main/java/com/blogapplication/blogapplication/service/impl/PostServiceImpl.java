@@ -3,14 +3,19 @@ package com.blogapplication.blogapplication.service.impl;
 import java.util.List;
 import java.util.Objects;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
+import com.blogapplication.blogapplication.entity.Category;
 import com.blogapplication.blogapplication.entity.Post;
 import com.blogapplication.blogapplication.exception.BlogAPIException;
 import com.blogapplication.blogapplication.exception.ResourceNotFoundException;
+import com.blogapplication.blogapplication.payload.PostDTO;
 import com.blogapplication.blogapplication.payload.PostResponse;
+import com.blogapplication.blogapplication.repository.CategoryRepository;
 import com.blogapplication.blogapplication.repository.PostRepository;
 import com.blogapplication.blogapplication.service.PostService;
 import org.springframework.data.domain.Page;
@@ -26,10 +31,25 @@ public class PostServiceImpl implements PostService{
     @Autowired
     PostRepository postRepository;
 
+    @Autowired
+    CategoryRepository categoryRepository;
+
+    @Autowired
+    ModelMapper modelMapper;
+
     @Override
-    public Post createPost(Post post) {
+    public PostDTO createPost(PostDTO postDto) {
         // Create a new post
-        return postRepository.save(post);
+        // Get category object
+        Category category = categoryRepository.findById(postDto.getCategoryId()).orElseThrow( () -> new ResourceNotFoundException("Post Resource", "Post ID", postDto.getCategoryId()));
+
+        Post post = modelMapper.map(postDto, Post.class);
+        post.setCategory(category);
+        postRepository.save(post);
+
+        // Convert entity to dto
+        PostDTO responsePostDto = modelMapper.map(post, PostDTO.class);
+        return responsePostDto;
     }
 
 

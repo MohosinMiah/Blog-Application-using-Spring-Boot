@@ -37,9 +37,9 @@ public class PostController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
-    public Post createPost( @Validated @RequestBody Post post)
+    public PostDTO createPost( @Validated @RequestBody PostDTO postDto)
     {
-        return postService.createPost(post);
+        return postService.createPost(postDto);
     }
 
 

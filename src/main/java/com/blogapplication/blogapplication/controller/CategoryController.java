@@ -25,7 +25,7 @@ public class CategoryController {
     CategoryService categoryService;
 
     @PostMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public CategoryDto addCategory(@RequestBody CategoryDto categoryDto){
         return categoryService.addCategory(categoryDto);
     }

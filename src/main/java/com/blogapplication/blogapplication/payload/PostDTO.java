@@ -1,6 +1,7 @@
 package com.blogapplication.blogapplication.payload;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -23,4 +24,7 @@ public class PostDTO {
     // post content should not be null or empty
     @NotEmpty
     private String content;
+
+    @NotNull
+    private Long categoryId;
 }
