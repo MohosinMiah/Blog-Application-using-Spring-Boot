@@ -17,6 +17,8 @@ import com.blogapplication.blogapplication.exception.ResourceNotFoundException;
 import com.blogapplication.blogapplication.payload.CategoryDto;
 import com.blogapplication.blogapplication.service.CategoryService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
 @RestController
 @RequestMapping("/api/category")
 public class CategoryController {
@@ -24,8 +26,12 @@ public class CategoryController {
     @Autowired
     CategoryService categoryService;
 
+ 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
+    @SecurityRequirement(
+        name = "Bear Authentication"
+    )
     public CategoryDto addCategory(@RequestBody CategoryDto categoryDto){
         return categoryService.addCategory(categoryDto);
     }

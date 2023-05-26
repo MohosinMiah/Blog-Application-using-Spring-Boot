@@ -25,6 +25,7 @@ import com.blogapplication.blogapplication.payload.PostResponse;
 import com.blogapplication.blogapplication.service.PostService;
 import com.blogapplication.blogapplication.utils.AppConstants;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 
@@ -43,13 +44,17 @@ public class PostController {
     }
 
 
+    @SecurityRequirement(
+        name = "Bear Authentication"
+    )
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
     public PostResponse getAllPost(
 
-        @RequestParam(value = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+        @RequestParam(value = "pageNo",   defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
         @RequestParam(value = "pageSize", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize,
-        @RequestParam(value = "sortBy", defaultValue = AppConstants.DEFAULT_SORT_BY, required = false) String sortBy,
-        @RequestParam(value = "sortDir", defaultValue = AppConstants.DEFAULT_SORT_DIRECTION, required = false) String sortDir
+        @RequestParam(value = "sortBy",   defaultValue = AppConstants.DEFAULT_SORT_BY, required = false) String sortBy,
+        @RequestParam(value = "sortDir",  defaultValue = AppConstants.DEFAULT_SORT_DIRECTION, required = false) String sortDir
     )
     {
         return postService.getAllPost(pageNo, pageSize, sortBy, sortDir);
