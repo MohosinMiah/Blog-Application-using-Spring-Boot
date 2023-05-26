@@ -25,17 +25,34 @@ import com.blogapplication.blogapplication.payload.PostResponse;
 import com.blogapplication.blogapplication.service.PostService;
 import com.blogapplication.blogapplication.utils.AppConstants;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.models.media.MediaType;
 import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 
 @RestController
 @RequestMapping("/api/posts")
+@Tag(
+    name = "CRUD Rest API for Post Resource"
+)
 public class PostController {
     
     @Autowired
     private PostService postService;
 
+
+    @SecurityRequirement(
+        name = "Bear Authentication"
+    )
+    @Operation(
+        summary  = "Create Post Rest API",
+        description = "Create Rest API to save post into database"
+    )
+    @ApiResponse(responseCode = "201", description = "Successfully Saved Data. New post created")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
     public PostDTO createPost( @Validated @RequestBody PostDTO postDto)
