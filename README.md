@@ -12,12 +12,24 @@ http://localhost:8080
 
 ## API Resource and Documentation
 
+## Postman API Resource
+
+```
+https://github.com/MohosinMiah/Blog-Application-using-Spring-Boot/blob/main/necessary_resource/Blog%20Application.postman_collection.json
+```
+
 ### API Documentation
+
+```
 https://documenter.getpostman.com/view/4954358/2s946k7qun
+```
 
 
 
 ## Database
+```
+https://github.com/MohosinMiah/Blog-Application-using-Spring-Boot/blob/main/necessary_resource/blogapplication.sql
+```
 
 
 ## Project Feature 
