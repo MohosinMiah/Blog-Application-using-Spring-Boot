@@ -34,7 +34,7 @@ https://github.com/MohosinMiah/Blog-Application-using-Spring-Boot/blob/main/nece
 
 ## Project Feature 
 
-# Project Name: Spring Blog with Role-Based Security
+# Project Name: Blog application with Role-Based Security
 
 This project aims to provide a fully functional blog application with features like creating and managing posts, commenting on posts, and organizing posts by categories. The application is secured using Spring Security with Role-Based Access Control (RBAC) and employs JSON Web Tokens (JWT) for authentication.
 
@@ -58,9 +58,7 @@ This project aims to provide a fully functional blog application with features l
 - Spring Security
 - Spring Data JPA
 - MySQL (or any other database of your choice)
-- Thymeleaf (or any other templating engine of your choice for frontend rendering)
 - JSON Web Tokens (JWT) for authentication
-- HTML, CSS, JavaScript for frontend
 
 ## Installation
 
